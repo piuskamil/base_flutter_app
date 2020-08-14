@@ -6,4 +6,4 @@ import 'injection.config.dart';
 final GetIt serviceLocator = GetIt.instance;
 
 @InjectableInit()
-void configureDependencies() => $initGetIt(serviceLocator);
+void configureDependencies(String env) => $initGetIt(serviceLocator, environment: env);

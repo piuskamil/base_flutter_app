@@ -1,3 +1,6 @@
+import 'package:baseflutterapp/application/lang/lang.dart';
+import 'package:baseflutterapp/localizations.dart';
+
 import '../../core/nagivator.dart';
 import '../home_screen/home_screen.dart';
 
@@ -33,7 +36,7 @@ class _LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<_LoginScreen> with LoginScreenView {
   final LoginScreenPresenter _presenter =
       serviceLocator<LoginScreenPresenter>();
-
+  final LangModel _langModel = serviceLocator<LangModel>();
   bool _isLoading = false;
 
   @override
@@ -52,15 +55,27 @@ class _LoginScreenState extends State<_LoginScreen> with LoginScreenView {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: _isLoading
-          ? CircularProgressIndicator()
-          : RaisedButton(
-              onPressed: () {
-                _presenter.signInWithGoogle();
-              },
-              child: Text('Sign in with google'),
-            ),
-    );
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : Column(
+                children: [
+                  RaisedButton(
+                    onPressed: () {
+                      _presenter.signInWithGoogle();
+                    },
+                    child: Text(
+                        AppLocalizations.of(context).get('SIGN_WITH_GOOGLE')),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      _langModel.langCode == LANG_PL
+                          ? _langModel.changeLangTo(LANG_EN)
+                          : _langModel.changeLangTo(LANG_PL);
+                    },
+                    child: Text(_langModel.langCode == LANG_PL ? 'PL' : 'EN'),
+                  )
+                ],
+              ));
   }
 
   @override

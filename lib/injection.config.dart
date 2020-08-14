@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'application/config/config.dart';
 import 'application/auth/auth_service.dart';
 import 'infrastructure/auth/firebase_auth_facade.dart';
 import 'infrastructure/core/firebase_helpers.dart';
@@ -18,6 +19,7 @@ import 'presentation/screens/home_screen/home_screen_presenter.dart';
 import 'domain/auth/i_auth_facade.dart';
 import 'domain/list/i_list_respository.dart';
 import 'domain/users/i_user_respository.dart';
+import 'application/lang/lang.dart';
 import 'infrastructure/list/list_respository.dart';
 import 'presentation/screens/list/list_screen_presenter.dart';
 import 'application/list/list_service.dart';
@@ -26,6 +28,10 @@ import 'presentation/screens/profile/profile_screen_presenter.dart';
 import 'presentation/screens/splash_screen/splash_screen_presenter.dart';
 import 'infrastructure/users/users_respository.dart';
 import 'application/users/users_service.dart';
+
+/// Environment names
+const _dev = 'dev';
+const _prod = 'prod';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -37,6 +43,8 @@ GetIt $initGetIt(
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
   final firebaseInjectableModule = _$FirebaseInjectableModule();
+  gh.lazySingleton<AppConfig>(() => DevAppConfig(), registerFor: {_dev});
+  gh.lazySingleton<AppConfig>(() => ProdAppConfig(), registerFor: {_prod});
   gh.lazySingleton<FirebaseAuth>(() => firebaseInjectableModule.firebaseAuth);
   gh.lazySingleton<Firestore>(() => firebaseInjectableModule.firestore);
   gh.lazySingleton<GoogleSignIn>(() => firebaseInjectableModule.googleSignIn);
@@ -45,6 +53,7 @@ GetIt $initGetIt(
       () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
   gh.lazySingleton<IUsersRepository>(
       () => UsersRepository(get<Firestore>(), get<IAuthFacade>()));
+  gh.lazySingleton<LangModel>(() => LangModel());
   gh.lazySingleton<UsersService>(() => UsersService(get<IUsersRepository>()));
   gh.lazySingleton<AuthService>(() => AuthService(get<IAuthFacade>()));
   gh.lazySingleton<FirebaseHelpers>(() => FirebaseHelpers(get<Firestore>()));
