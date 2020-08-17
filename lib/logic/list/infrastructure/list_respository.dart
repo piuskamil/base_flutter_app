@@ -42,8 +42,8 @@ class ListRepository implements ListRepositoryImp {
         .snapshots()
         .map((snapshot) => DataObject.data(
               snapshot.documents
-                  .map((doc) =>
-                      ListElement(uid: doc['uid'])) //todo ListElement.fromJson
+                  .map((DocumentSnapshot doc) =>
+                      ListElement.fromJson(doc.data))
                   .toList(),
             ))
         .onErrorReturnWith((e) {

@@ -27,13 +27,7 @@ class UsersRepository implements UsersRepositoryImp {
         .document(uid)
         .snapshots()
         .map(
-          (DocumentSnapshot ds) => DataObject.data(User(
-            uid: ds.data['uid'],
-            email: ds.data['email'],
-            displayName: ds.data['displayName'],
-            phone: ds.data['phone'],
-            photoUrl: ds.data['photoUrl'],
-          )), //todo User.fromJson()
+          (DocumentSnapshot ds) => DataObject.data(User.fromJson(ds.data)),
         )
         .onErrorReturnWith((e) {
       if (e is PlatformException && e.message.contains('PERMISSION_DENIED')) {
