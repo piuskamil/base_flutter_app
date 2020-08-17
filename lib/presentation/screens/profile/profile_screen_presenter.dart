@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:baseflutterapp/application/auth/auth_service.dart';
-import 'package:baseflutterapp/application/users/users_service.dart';
-import 'package:baseflutterapp/domain/core/base_presenter.dart';
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
-import 'package:baseflutterapp/domain/users/user.dart';
+import 'package:baseflutterapp/logic/auth/application/auth_service.dart';
+import 'package:baseflutterapp/logic/users/application/users_service.dart';
+import 'package:baseflutterapp/logic/core/domain/base_presenter.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
+import 'package:baseflutterapp/logic/users/domain/user.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class ProfileScreenView {

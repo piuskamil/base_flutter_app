@@ -1,18 +1,18 @@
-import 'package:baseflutterapp/domain/auth/i_auth_facade.dart';
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
-import 'package:baseflutterapp/domain/core/failures.dart';
-import 'package:baseflutterapp/domain/users/i_user_respository.dart';
-import 'package:baseflutterapp/domain/users/user.dart';
+import 'package:baseflutterapp/logic/auth/domain/auth_facade.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
+import 'package:baseflutterapp/logic/core/domain/failures.dart';
+import 'package:baseflutterapp/logic/users/domain/user_respository.dart';
+import 'package:baseflutterapp/logic/users/domain/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-@LazySingleton(as: IUsersRepository)
-class UsersRepository implements IUsersRepository {
+@LazySingleton(as: UsersRepositoryImp)
+class UsersRepository implements UsersRepositoryImp {
   final Firestore _firestore;
-  final IAuthFacade _authFacade;
+  final AuthFacadeImp _authFacade;
 
   UsersRepository(this._firestore, this._authFacade);
 

@@ -1,12 +1,12 @@
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
 
-import '../../domain/auth/i_auth_facade.dart';
+import '../domain/auth_facade.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class AuthService {
-  final IAuthFacade _authFacade;
+  final AuthFacadeImp _authFacade;
 
   AuthService(this._authFacade);
 

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'domain/core/const.dart';
+import 'logic/core/domain/const.dart';
 
 class AppLocalizations {
   AppLocalizations(this.locale);

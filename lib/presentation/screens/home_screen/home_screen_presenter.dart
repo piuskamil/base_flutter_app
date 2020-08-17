@@ -1,4 +1,4 @@
-import '../../../domain/core/base_presenter.dart';
+import '../../../logic/core/domain/base_presenter.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class HomeScreenView {

@@ -1,4 +1,4 @@
-import '../core/failure.dart';
+import '../../core/domain/failure.dart';
 
 class CancelledByUser extends Failure {}
 class ServerError extends Failure {}

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'application/lang/lang.dart';
-import 'domain/core/const.dart';
+import 'logic/lang/appliction/lang.dart';
+import 'logic/core/domain/const.dart';
 import 'localizations.dart';
 import 'presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

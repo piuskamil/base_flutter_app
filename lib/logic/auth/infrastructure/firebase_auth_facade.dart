@@ -1,17 +1,17 @@
 import 'package:injectable/injectable.dart';
 
-import '../../domain/core/failure.dart';
-import '../../domain/auth/auth_failures.dart';
-import '../../domain/auth/i_auth_facade.dart';
-import '../../domain/auth/value_objects.dart';
-import '../../domain/core/data_object.dart';
+import '../../core/domain/failure.dart';
+import '../domain/auth_failures.dart';
+import '../domain/auth_facade.dart';
+import '../domain/value_objects.dart';
+import '../../core/domain/data_object.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-@LazySingleton(as: IAuthFacade)
-class FirebaseAuthFacade implements IAuthFacade {
+@LazySingleton(as: AuthFacadeImp)
+class FirebaseAuthFacade implements AuthFacadeImp {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 

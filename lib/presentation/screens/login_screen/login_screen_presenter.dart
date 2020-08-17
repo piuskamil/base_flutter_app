@@ -1,9 +1,9 @@
-import 'package:baseflutterapp/application/auth/auth_service.dart';
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
+import 'package:baseflutterapp/logic/auth/application/auth_service.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/core/base_presenter.dart';
+import '../../../logic/core/domain/base_presenter.dart';
 
 abstract class LoginScreenView {
   void redirectToHomeScreen();

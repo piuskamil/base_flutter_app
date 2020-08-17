@@ -1,6 +1,6 @@
-import '../core/data_object.dart';
-import '../core/failure.dart';
-import '../core/value_validators.dart';
+import '../../core/domain/data_object.dart';
+import '../../core/domain/failure.dart';
+import '../../core/domain/value_validators.dart';
 
 class EmailAddress {
   final DataObject<Failure, String> value;

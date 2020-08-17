@@ -7,7 +7,7 @@ import 'logic/lang/appliction/lang.dart';
 import 'injection.dart';
 
 void main() {
-  configureDependencies(Environment.dev);
+  configureDependencies(Environment.prod);
   final LangModel _langModel = serviceLocator<LangModel>();
 
   runApp(

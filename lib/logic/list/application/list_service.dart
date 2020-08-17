@@ -1,12 +1,12 @@
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
-import 'package:baseflutterapp/domain/list/i_list_respository.dart';
-import 'package:baseflutterapp/domain/list/list_element.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
+import 'package:baseflutterapp/logic/list/domain/list_respository.dart';
+import 'package:baseflutterapp/logic/list/domain/list_element.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class ListService {
-  final IListRepository _listRepository;
+  final ListRepositoryImp _listRepository;
 
   ListService(this._listRepository);
 

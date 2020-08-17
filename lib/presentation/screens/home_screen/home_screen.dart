@@ -1,6 +1,6 @@
 import 'package:baseflutterapp/presentation/screens/home_screen/tab_navigator.dart';
 
-import '../../../domain/core/const.dart';
+import '../../../logic/core/domain/const.dart';
 import 'package:flutter/material.dart';
 
 import '../../../injection.dart';

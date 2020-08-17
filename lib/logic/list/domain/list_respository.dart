@@ -1,10 +1,10 @@
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
 
 import 'list_element.dart';
 
 
-abstract class IListRepository {
+abstract class ListRepositoryImp {
   Stream<DataObject<Failure, List<ListElement>>> getListElements();
 
   Future<DataObject<Failure, void>> addListElement();

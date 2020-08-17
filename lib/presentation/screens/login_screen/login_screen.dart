@@ -1,10 +1,10 @@
-import 'package:baseflutterapp/application/lang/lang.dart';
+import 'package:baseflutterapp/logic/lang/appliction/lang.dart';
 import 'package:baseflutterapp/localizations.dart';
 
 import '../../core/nagivator.dart';
 import '../home_screen/home_screen.dart';
 
-import '../../../domain/core/const.dart';
+import '../../../logic/core/domain/const.dart';
 import 'package:flutter/material.dart';
 
 import '../../../injection.dart';

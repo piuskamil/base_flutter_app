@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:baseflutterapp/domain/core/const.dart';
+import 'package:baseflutterapp/logic/core/domain/const.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem { profile, home }

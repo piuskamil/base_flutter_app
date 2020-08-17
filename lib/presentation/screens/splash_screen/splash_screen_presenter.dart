@@ -1,7 +1,7 @@
-import '../../../application/auth/auth_service.dart';
+import '../../../logic/auth/application/auth_service.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/core/base_presenter.dart';
+import '../../../logic/core/domain/base_presenter.dart';
 
 abstract class SplashScreenView {
   void redirectToLoginScreen();

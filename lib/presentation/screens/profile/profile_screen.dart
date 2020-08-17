@@ -1,7 +1,7 @@
-import 'package:baseflutterapp/domain/core/const.dart';
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
-import 'package:baseflutterapp/domain/users/user.dart';
+import 'package:baseflutterapp/logic/core/domain/const.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
+import 'package:baseflutterapp/logic/users/domain/user.dart';
 import 'package:baseflutterapp/presentation/core/nagivator.dart';
 import 'package:baseflutterapp/presentation/screens/profile/profile_screen_presenter.dart';
 import 'package:baseflutterapp/presentation/screens/splash_screen/splash_screen.dart';

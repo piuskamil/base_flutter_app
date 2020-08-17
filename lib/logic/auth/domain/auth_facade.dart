@@ -1,11 +1,11 @@
-import '../core/failure.dart';
+import '../../core/domain/failure.dart';
 
 import 'value_objects.dart';
 
-import '../core/data_object.dart';
+import '../../core/domain/data_object.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class IAuthFacade {
+abstract class AuthFacadeImp {
   Future<String> getSignedInUsersUid();
 
   Future<DataObject<Failure, void>> registerWithEmailAndPassword({

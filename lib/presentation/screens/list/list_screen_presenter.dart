@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:baseflutterapp/application/list/list_service.dart';
-import 'package:baseflutterapp/domain/core/base_presenter.dart';
-import 'package:baseflutterapp/domain/core/data_object.dart';
-import 'package:baseflutterapp/domain/core/failure.dart';
-import 'package:baseflutterapp/domain/list/list_element.dart';
+import 'package:baseflutterapp/logic/list/application/list_service.dart';
+import 'package:baseflutterapp/logic/core/domain/base_presenter.dart';
+import 'package:baseflutterapp/logic/core/domain/data_object.dart';
+import 'package:baseflutterapp/logic/core/domain/failure.dart';
+import 'package:baseflutterapp/logic/list/domain/list_element.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class ListScreenView {

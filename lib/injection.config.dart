@@ -10,24 +10,26 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'application/config/config.dart';
-import 'application/auth/auth_service.dart';
-import 'infrastructure/auth/firebase_auth_facade.dart';
-import 'infrastructure/core/firebase_helpers.dart';
-import 'infrastructure/core/firebase_injectable_module.dart';
+import 'logic/config/appliction/config.dart';
+import 'logic/auth/domain/auth_facade.dart';
+import 'logic/auth/application/auth_service.dart';
+import 'logic/auth/infrastructure/firebase_auth_facade.dart';
+import 'logic/core/infrastructure/firebase_helpers.dart';
+import 'logic/core/infrastructure/firebase_injectable_module.dart';
 import 'presentation/screens/home_screen/home_screen_presenter.dart';
-import 'domain/auth/i_auth_facade.dart';
-import 'domain/list/i_list_respository.dart';
-import 'domain/users/i_user_respository.dart';
-import 'application/lang/lang.dart';
-import 'infrastructure/list/list_respository.dart';
+import 'logic/lang/appliction/lang.dart';
+import 'logic/list/infrastructure/list_respository.dart';
+import 'logic/list/domain/list_respository.dart';
 import 'presentation/screens/list/list_screen_presenter.dart';
-import 'application/list/list_service.dart';
+import 'logic/list/application/list_service.dart';
+import 'logic/logger/domain/logger_facade.dart';
 import 'presentation/screens/login_screen/login_screen_presenter.dart';
 import 'presentation/screens/profile/profile_screen_presenter.dart';
+import 'logic/logger/infrastructure/sentry_facade.dart';
 import 'presentation/screens/splash_screen/splash_screen_presenter.dart';
-import 'infrastructure/users/users_respository.dart';
-import 'application/users/users_service.dart';
+import 'logic/users/infrastructure/users_respository.dart';
+import 'logic/users/domain/user_respository.dart';
+import 'logic/users/application/users_service.dart';
 
 /// Environment names
 const _dev = 'dev';
@@ -49,25 +51,29 @@ GetIt $initGetIt(
   gh.lazySingleton<Firestore>(() => firebaseInjectableModule.firestore);
   gh.lazySingleton<GoogleSignIn>(() => firebaseInjectableModule.googleSignIn);
   gh.factory<HomeScreenPresenter>(() => HomeScreenPresenter());
-  gh.lazySingleton<IAuthFacade>(
-      () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
-  gh.lazySingleton<IUsersRepository>(
-      () => UsersRepository(get<Firestore>(), get<IAuthFacade>()));
   gh.lazySingleton<LangModel>(() => LangModel());
-  gh.lazySingleton<UsersService>(() => UsersService(get<IUsersRepository>()));
-  gh.lazySingleton<AuthService>(() => AuthService(get<IAuthFacade>()));
+  gh.lazySingleton<LoggerFacadeImp>(() => SentryFacadeDev(),
+      registerFor: {_dev});
+  gh.lazySingleton<LoggerFacadeImp>(() => SentryFacadeProd(),
+      registerFor: {_prod});
+  gh.lazySingleton<AuthFacadeImp>(
+      () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
+  gh.lazySingleton<AuthService>(() => AuthService(get<AuthFacadeImp>()));
   gh.lazySingleton<FirebaseHelpers>(() => FirebaseHelpers(get<Firestore>()));
-  gh.lazySingleton<IListRepository>(
+  gh.lazySingleton<ListRepositoryImp>(
       () => ListRepository(get<Firestore>(), get<FirebaseHelpers>()));
-  gh.lazySingleton<ListService>(() => ListService(get<IListRepository>()));
+  gh.lazySingleton<ListService>(() => ListService(get<ListRepositoryImp>()));
   gh.factory<LoginScreenPresenter>(
       () => LoginScreenPresenter(get<AuthService>()));
-  gh.factory<ProfileScreenPresenter>(
-      () => ProfileScreenPresenter(get<AuthService>(), get<UsersService>()));
   gh.factory<SplashScreenPresenter>(
       () => SplashScreenPresenter(get<AuthService>()));
+  gh.lazySingleton<UsersRepositoryImp>(
+      () => UsersRepository(get<Firestore>(), get<AuthFacadeImp>()));
+  gh.lazySingleton<UsersService>(() => UsersService(get<UsersRepositoryImp>()));
   gh.factory<ListScreenPresenter>(
       () => ListScreenPresenter(get<ListService>()));
+  gh.factory<ProfileScreenPresenter>(
+      () => ProfileScreenPresenter(get<AuthService>(), get<UsersService>()));
   return get;
 }
 
