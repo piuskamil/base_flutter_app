@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class FirebaseHelpers {
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
 
   FirebaseHelpers(this._firestore);
 

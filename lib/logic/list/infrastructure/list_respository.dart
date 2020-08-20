@@ -11,7 +11,7 @@ import 'package:rxdart/rxdart.dart';
 
 @LazySingleton(as: ListRepositoryImp)
 class ListRepository implements ListRepositoryImp {
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
   final FirebaseHelpers _firebaseHelpers;
 
   ListRepository(this._firestore, this._firebaseHelpers);
@@ -22,8 +22,8 @@ class ListRepository implements ListRepositoryImp {
     try {
       await _firestore
           .collection('list')
-          .document(uid)
-          .setData({"uid": uid}, merge: true);
+          .doc(uid)
+          .set({"uid": uid}, SetOptions(merge: true));
 
       return DataObject.data();
     } on PlatformException catch (e) {
@@ -41,9 +41,9 @@ class ListRepository implements ListRepositoryImp {
         .collection('list')
         .snapshots()
         .map((snapshot) => DataObject.data(
-              snapshot.documents
+              snapshot.docs
                   .map((DocumentSnapshot doc) =>
-                      ListElement.fromJson(doc.data))
+                      ListElement.fromJson(doc.data()))
                   .toList(),
             ))
         .onErrorReturnWith((e) {
@@ -58,7 +58,7 @@ class ListRepository implements ListRepositoryImp {
   @override
   Future<DataObject<Failure, void>> removeListElement(String uid) async {
     try {
-      await _firestore.collection('list').document(uid).delete();
+      await _firestore.collection('list').doc(uid).delete();
 
       return DataObject.data();
     } on PlatformException catch (e) {

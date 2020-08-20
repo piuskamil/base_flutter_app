@@ -22,7 +22,7 @@ class FirebaseAuthFacade implements AuthFacadeImp {
 
   @override
   Future<String> getSignedInUsersUid() async {
-    final FirebaseUser firebaseUser = await _firebaseAuth.currentUser();
+    final User firebaseUser =  _firebaseAuth.currentUser;
 
     if (firebaseUser == null) {
       return null;
@@ -86,7 +86,7 @@ class FirebaseAuthFacade implements AuthFacadeImp {
       }
 
       final googleAuthentication = await googleUser.authentication;
-      final authCredential = GoogleAuthProvider.getCredential(
+      final authCredential = GoogleAuthProvider.credential(
         accessToken: googleAuthentication.accessToken,
         idToken: googleAuthentication.idToken,
       );

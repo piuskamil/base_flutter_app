@@ -48,10 +48,15 @@ GetIt $initGetIt(
   gh.lazySingleton<AppConfig>(() => DevAppConfig(), registerFor: {_dev});
   gh.lazySingleton<AppConfig>(() => ProdAppConfig(), registerFor: {_prod});
   gh.lazySingleton<FirebaseAuth>(() => firebaseInjectableModule.firebaseAuth);
-  gh.lazySingleton<Firestore>(() => firebaseInjectableModule.firestore);
+  gh.lazySingleton<FirebaseFirestore>(() => firebaseInjectableModule.firestore);
+  gh.lazySingleton<FirebaseHelpers>(
+      () => FirebaseHelpers(get<FirebaseFirestore>()));
   gh.lazySingleton<GoogleSignIn>(() => firebaseInjectableModule.googleSignIn);
   gh.factory<HomeScreenPresenter>(() => HomeScreenPresenter());
   gh.lazySingleton<LangModel>(() => LangModel());
+  gh.lazySingleton<ListRepositoryImp>(
+      () => ListRepository(get<FirebaseFirestore>(), get<FirebaseHelpers>()));
+  gh.lazySingleton<ListService>(() => ListService(get<ListRepositoryImp>()));
   gh.lazySingleton<LoggerFacadeImp>(() => SentryFacadeDev(),
       registerFor: {_dev});
   gh.lazySingleton<LoggerFacadeImp>(() => SentryFacadeProd(),
@@ -59,19 +64,15 @@ GetIt $initGetIt(
   gh.lazySingleton<AuthFacadeImp>(
       () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
   gh.lazySingleton<AuthService>(() => AuthService(get<AuthFacadeImp>()));
-  gh.lazySingleton<FirebaseHelpers>(() => FirebaseHelpers(get<Firestore>()));
-  gh.lazySingleton<ListRepositoryImp>(
-      () => ListRepository(get<Firestore>(), get<FirebaseHelpers>()));
-  gh.lazySingleton<ListService>(() => ListService(get<ListRepositoryImp>()));
+  gh.factory<ListScreenPresenter>(
+      () => ListScreenPresenter(get<ListService>()));
   gh.factory<LoginScreenPresenter>(
       () => LoginScreenPresenter(get<AuthService>()));
   gh.factory<SplashScreenPresenter>(
       () => SplashScreenPresenter(get<AuthService>()));
   gh.lazySingleton<UsersRepositoryImp>(
-      () => UsersRepository(get<Firestore>(), get<AuthFacadeImp>()));
+      () => UsersRepository(get<FirebaseFirestore>(), get<AuthFacadeImp>()));
   gh.lazySingleton<UsersService>(() => UsersService(get<UsersRepositoryImp>()));
-  gh.factory<ListScreenPresenter>(
-      () => ListScreenPresenter(get<ListService>()));
   gh.factory<ProfileScreenPresenter>(
       () => ProfileScreenPresenter(get<AuthService>(), get<UsersService>()));
   return get;

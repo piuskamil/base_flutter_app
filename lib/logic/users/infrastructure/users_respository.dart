@@ -11,7 +11,7 @@ import 'package:rxdart/rxdart.dart';
 
 @LazySingleton(as: UsersRepositoryImp)
 class UsersRepository implements UsersRepositoryImp {
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
   final AuthFacadeImp _authFacade;
 
   UsersRepository(this._firestore, this._authFacade);
@@ -24,10 +24,10 @@ class UsersRepository implements UsersRepositoryImp {
 
     yield* _firestore
         .collection('users')
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(
-          (DocumentSnapshot ds) => DataObject.data(User.fromJson(ds.data)),
+          (DocumentSnapshot ds) => DataObject.data(User.fromJson(ds.data())),
         )
         .onErrorReturnWith((e) {
       if (e is PlatformException && e.message.contains('PERMISSION_DENIED')) {
@@ -43,7 +43,7 @@ class UsersRepository implements UsersRepositoryImp {
 
     Future<void> _waitTillUserDocumentExists(String uid) async {
     await _firestore
-        .document('users/$uid')
+        .doc('users/$uid')
         .get()
         .then((DocumentSnapshot ds) async {
       if (!ds.exists) {
