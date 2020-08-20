@@ -16,6 +16,9 @@ import 'logic/auth/application/auth_service.dart';
 import 'logic/auth/infrastructure/firebase_auth_facade.dart';
 import 'logic/core/infrastructure/firebase_helpers.dart';
 import 'logic/core/infrastructure/firebase_injectable_module.dart';
+import 'logic/geo_location/infrastructure/geo_location.dart';
+import 'logic/geo_location/domain/geo_location.dart';
+import 'logic/geo_location/application/geo_location_service.dart';
 import 'presentation/screens/home_screen/home_screen_presenter.dart';
 import 'logic/core/infrastructure/initialize.dart';
 import 'logic/core/domain/initilize.dart';
@@ -26,6 +29,7 @@ import 'presentation/screens/list/list_screen_presenter.dart';
 import 'logic/list/application/list_service.dart';
 import 'logic/logger/domain/logger_facade.dart';
 import 'presentation/screens/login_screen/login_screen_presenter.dart';
+import 'presentation/screens/map/map_screen_presenter.dart';
 import 'presentation/screens/profile/profile_screen_presenter.dart';
 import 'logic/logger/infrastructure/sentry_facade.dart';
 import 'presentation/screens/splash_screen/splash_screen_presenter.dart';
@@ -53,6 +57,9 @@ GetIt $initGetIt(
   gh.lazySingleton<FirebaseFirestore>(() => firebaseInjectableModule.firestore);
   gh.lazySingleton<FirebaseHelpers>(
       () => FirebaseHelpers(get<FirebaseFirestore>()));
+  gh.lazySingleton<GeoLocationImp>(() => GeoLocation());
+  gh.lazySingleton<GeoLocationService>(
+      () => GeoLocationService(get<GeoLocationImp>()));
   gh.lazySingleton<GoogleSignIn>(() => firebaseInjectableModule.googleSignIn);
   gh.factory<HomeScreenPresenter>(() => HomeScreenPresenter());
   gh.lazySingleton<InitializeImp>(() => InitializeFirebaseApp());
@@ -64,6 +71,7 @@ GetIt $initGetIt(
       registerFor: {_dev});
   gh.lazySingleton<LoggerFacadeImp>(() => SentryFacadeProd(),
       registerFor: {_prod});
+  gh.factory<MapScreenPresenter>(() => MapScreenPresenter());
   gh.lazySingleton<AuthFacadeImp>(
       () => FirebaseAuthFacade(get<FirebaseAuth>(), get<GoogleSignIn>()));
   gh.lazySingleton<AuthService>(() => AuthService(get<AuthFacadeImp>()));

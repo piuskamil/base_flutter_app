@@ -2,6 +2,8 @@ import 'package:baseflutterapp/logic/core/domain/const.dart';
 import 'package:baseflutterapp/logic/core/domain/data_object.dart';
 import 'package:baseflutterapp/logic/core/domain/failure.dart';
 import 'package:baseflutterapp/logic/list/domain/list_element.dart';
+import 'package:baseflutterapp/presentation/core/nagivator.dart';
+import 'package:baseflutterapp/presentation/screens/map/map_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../injection.dart';
@@ -55,6 +57,12 @@ class _ListScreenState extends State<_ListScreen> with ListScreenView {
                 _presenter.add();
               },
               icon: Icon(Icons.add),
+            ),
+            IconButton(
+              onPressed: () {
+                AppNavigator().push(context, MapScreen(), rootNavigator: true);
+              },
+              icon: Icon(Icons.map),
             )
           ],
         ),
