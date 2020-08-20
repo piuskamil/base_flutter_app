@@ -17,6 +17,8 @@ import 'logic/auth/infrastructure/firebase_auth_facade.dart';
 import 'logic/core/infrastructure/firebase_helpers.dart';
 import 'logic/core/infrastructure/firebase_injectable_module.dart';
 import 'presentation/screens/home_screen/home_screen_presenter.dart';
+import 'logic/core/infrastructure/initialize.dart';
+import 'logic/core/domain/initilize.dart';
 import 'logic/lang/appliction/lang.dart';
 import 'logic/list/infrastructure/list_respository.dart';
 import 'logic/list/domain/list_respository.dart';
@@ -53,6 +55,7 @@ GetIt $initGetIt(
       () => FirebaseHelpers(get<FirebaseFirestore>()));
   gh.lazySingleton<GoogleSignIn>(() => firebaseInjectableModule.googleSignIn);
   gh.factory<HomeScreenPresenter>(() => HomeScreenPresenter());
+  gh.lazySingleton<InitializeImp>(() => InitializeFirebaseApp());
   gh.lazySingleton<LangModel>(() => LangModel());
   gh.lazySingleton<ListRepositoryImp>(
       () => ListRepository(get<FirebaseFirestore>(), get<FirebaseHelpers>()));
